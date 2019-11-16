@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Bind Map From Json with Info Window</title>
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>    
+    <div id="map"></div>   
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap"
+    async defer></script>
+    <script>
+
+      function bindInfoWindow(marker, map, infowindow) {
+        marker.addListener('click', function() {
+          infowindow.content; // 'content' is an element of infowindow
+          infowindow.open(map, this);
+        });
+      }
+
+      function initMap() {
+
+        var sampleDataFromAPI = [{
+            title: 'Title1',
+            content: 'Content1',
+            coordinates: {
+              lat: -31.563910,
+              lng: 147.154312
+            },
+          },
+          {
+            title: 'Title2',
+            content: 'Content2',
+            coordinates: {
+              lat: -33.727111,
+              lng: 150.371124
+            },
+          }
+        ]
+
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 3,
+          center: {
+            lat: -28.024,
+            lng: 140.887
+          }
+        });
+
+        // make sure at least 1 marker exists
+        if (sampleDataFromAPI.length > 0) {
+
+          // loop through the markers array and create a marker for each set of coordinates
+          for (var i = 0; i < sampleDataFromAPI.length; i++) {
+            // marker setup
+            var data = sampleDataFromAPI[i];
+            // .coordinates corresponds to the 'coordinates' element of the array
+            var coord = data.coordinates;
+            // generate latitude and longtitude position of the marker
+            var latLng = new google.maps.LatLng(coord.lat, coord.lng);
+            // define the marker
+            var marker = new google.maps.Marker({
+              position: latLng,
+              map: map,
+              title: data.title
+            });
+            // info window content
+            var infowindow = new google.maps.InfoWindow({
+              content: data.content
+            });
+
+            // bind the info window to the marker
+            bindInfoWindow(marker, map, infowindow);
+          } // markers loop
+        } // markers.length check
+
+      }
+    </script>
+  </body>
+</html>
