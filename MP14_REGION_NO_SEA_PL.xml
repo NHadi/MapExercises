@@ -121,7 +121,8 @@
 </html>
 
 ]]></description>
-      <styleUrl>#PolyStyle00</styleUrl>
+      <styleUrl>#
+       00</styleUrl>
       <MultiGeometry>
         <Polygon>
           <extrude>0</extrude>          <altitudeMode>clampedToGround</altitudeMode>
@@ -827,7 +828,7 @@
       <width>0.400000</width>
     </LineStyle>
     <PolyStyle>
-      <color>25be65</color>
+      <color>D43a3d</color>
       <outline>1</outline>
     </PolyStyle>
   </Style>
